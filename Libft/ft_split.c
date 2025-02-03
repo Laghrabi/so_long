@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 16:58:18 by claghrab          #+#    #+#             */
-/*   Updated: 2024/11/02 17:54:46 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/03 11:50:04 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ char	**ft_split(char const *s, char c)
 		if (!arr[j - 1])
 			return (free_array(arr, j));
 	}
-	return (arr);
+	return (arr[j] = NULL, arr);
 }
