@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 18:01:56 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/03 22:10:27 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:12:38 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	file_exist(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd < 0)
 	{
-		perror(file_name);
+		ft_printf("Error: %s: No such file or directory\n", file_name);
 		exit(FAILURE_EXIT);
 	}
 	return (fd);
@@ -50,6 +50,12 @@ char	**read_file(int fd)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
+		if (line[0] == '\n')
+		{
+			free(line);
+			free(buffer);
+			return (NULL);
+		}
 		buffer = join(buffer, line);
 		free(line);
 		line = get_next_line(fd);
@@ -187,4 +193,116 @@ int	does_contain(char **map)
 	if (E == 1 && P == 1 && C >= 1)
 		return (TRUE);
 	return (FALSE);
+}
+
+void flood_fill(char **map, int x, int y, int rows, int cols, int *c)
+{
+	if (map == NULL || *map == NULL)
+		return ;
+	if (x < 0 || y < 0 || x >= rows || y >= cols)
+		return ;
+	if (map[x][y] == '1' || map[x][y] == '#')
+		return ;
+	if (map[x][y] == 'C')
+		(*c)++;
+	map[x][y] = '#';
+	flood_fill(map, x + 1, y, rows, cols, c);
+	flood_fill(map, x - 1, y, rows, cols, c);
+	flood_fill(map, x, y + 1, rows, cols, c);
+	flood_fill(map, x, y - 1, rows, cols, c);
+}
+
+int	create_dup(int fd)
+{
+	char **dup;
+	
+	dup = NULL;
+	if (fd < 0)
+		return (FALSE);
+	dup = read_file(fd);
+	if (dup == NULL || *dup == NULL)
+		return (FALSE);
+	if (find_start_position(dup) == FALSE)
+		return (FALSE);
+	return (FALSE);
+}
+
+int	if_changed(char **map)
+{
+	int i;
+	int j;
+	
+	if (map == NULL || *map == NULL)
+		return (FALSE);
+	i = 0;
+	int a = 0;
+	while (map[a])
+	{
+		printf("%s\n", map[a]);
+		a++;
+	}
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] != '1' && map[i][j] != '#')
+				return (FALSE);
+			j++;
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
+int	is_valid_path(char **map, int x, int y)
+{
+	int (i), (j), (C), (c);
+	
+	if (map == NULL || *map == NULL)
+		return (FALSE);
+	i = 0;
+	C = 0;
+	c = 0;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'C')
+				C++;
+			j++;
+		}
+		i++;
+	}
+	flood_fill(map, x, y, ++i, ++j, &c);
+	if (C != c || if_changed(map) == FALSE)
+		return (FALSE);
+	return (TRUE);
+}
+
+int	find_start_position(char **map)
+{
+	int i;
+	int j;
+	
+	if (map == NULL || *map == NULL)
+		return (FALSE);
+	i = 0;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				if (is_valid_path(map, i, j) == FALSE)
+					return (FALSE);
+				return (TRUE);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (TRUE);
 }

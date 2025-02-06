@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:31 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/03 22:09:45 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/04 20:05:32 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,40 +41,47 @@ int	main(int ac, char **av)
 	return (0);*/
 	if(ac < 2)
 		return(FALSE);
-	if (check_file_extension(av[1]) == FALSE)
-	{
-		ft_printf("Wrong extension");
-		exit(-1);
-	}
-	int fd = file_exist(av[1]);
-	printf ("%d\n", fd);
-	char **str = read_file(fd);
-	int i = 0;
-	while (str[i])
-	{
-		printf("%s\n", str[i]);
-		i++;
-	}
-	if(is_rectangle(str) == FALSE)
-	{
-		ft_printf("Invalid map\n");
-		exit(FAILURE_EXIT);
-	}
-	if (check_first_last_rows(str) == FALSE || check_midlle_rows(str) == FALSE)
-	{
-		ft_printf("Map Not Closed\n");
-		exit(FAILURE_EXIT);
-	}
-	if (is_valid_line(str) == FALSE)
-	{
-		ft_printf("Invalid key\n");
-		exit(FAILURE_EXIT);
-	}
-	if (does_contain(str) == FALSE)
-	{
-		ft_printf("Invalid keys\n");
-		exit(FAILURE_EXIT);
-	}
-	free_splited(str);
+	char **str = check_input(av[1]);
+	printf("Valid Map\n");
+	// if (check_file_extension(av[1]) == FALSE)
+	// {
+	// 	ft_printf("Wrong extension");
+	// 	exit(-1);
+	// }
+	// int fd = file_exist(av[1]);
+	// printf ("%d\n", fd);
+	// char **str = read_file(fd);
+	// if (str == NULL)
+	// {
+	// 	ft_printf("Invalid map\n");
+	// 	exit(FAILURE_EXIT);
+	// }
+	// int i = 0;
+	// while (str[i])
+	// {
+	// 	printf("%s\n", str[i]);
+	// 	i++;
+	// }
+	// if(is_rectangle(str) == FALSE)
+	// {
+	// 	ft_printf("Invalid map\n");
+	// 	exit(FAILURE_EXIT);
+	// }
+	// if (check_first_last_rows(str) == FALSE || check_midlle_rows(str) == FALSE)
+	// {
+	// 	ft_printf("Map Not Closed\n");
+	// 	exit(FAILURE_EXIT);
+	// }
+	// if (is_valid_line(str) == FALSE)
+	// {
+	// 	ft_printf("Invalid key\n");
+	// 	exit(FAILURE_EXIT);
+	// }
+	// if (does_contain(str) == FALSE)
+	// {
+	// 	ft_printf("Invalid keys\n");
+	// 	exit(FAILURE_EXIT);
+	// }
+	 free_splited(str);
 	return (0);
 }
