@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcing.c                                          :+:      :+:    :+:   */
+/*   new_parcing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/02 18:01:56 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/06 13:25:55 by claghrab         ###   ########.fr       */
+/*   Created: 2025/02/06 13:02:41 by claghrab          #+#    #+#             */
+/*   Updated: 2025/02/07 20:58:31 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int check_file_extension(char *file_name)
   return (TRUE);
 }
 
-int	file_exist(char *file_name)
+int	file_exist(char *file_name, t_map *game_board)
 {
 	int	fd;
 	
@@ -37,6 +37,7 @@ int	file_exist(char *file_name)
 		ft_printf("Error: %s: No such file or directory\n", file_name);
 		exit(FAILURE_EXIT);
 	}
+	(*game_board).fd = fd;
 	return (fd);
 }
 
@@ -67,21 +68,22 @@ char	**read_file(int fd)
 	return (splited);
 }
 
-int	is_rectangle(char **map)
+int	is_rectangle(char **map, t_map *game_board)
 {
 	int	i;
 	size_t	len;
-	
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 0;
 	len = ft_strlen(map[i++]);
+	(*game_board).cols = len;
 	while (map[i] != NULL)
 	{
 		if(len != ft_strlen(map[i]))
 			return (FALSE);
 		i++;
 	}
+	(*game_board).rows = i;
 	return (TRUE);
 }
 
@@ -167,30 +169,92 @@ int	is_valid_line(char **map)
 	return (TRUE);
 }
 
-int	does_contain(char **map)
+int	does_contain(char **map, t_map *game_board)
 {
-	int	(i), (j), (E), (P), (C);
-	
+	if (map == NULL || *map == NULL)
+		return (FALSE);
+	if (does_contain_e(map, game_board) == TRUE && does_contain_p(map, game_board) == TRUE && does_contain_c(map, game_board) == TRUE)
+		return (TRUE);
+	return (FALSE);
+}
+
+int does_contain_e(char **map, t_map *game_board)
+{
+	int (i), (j), (E);
+
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 1;
-	E = P = C = 0;
+	E = 0;
 	while (map[i + 1] != NULL)
 	{
 		j = 0;
 		while (map[i][j] != '\0')
 		{
 			if (map[i][j] == 'E')
+			{
+				(*game_board).x_E = j;
+				(*game_board).y_E = i;
 				E++;
-			else if (map[i][j] == 'P')
+			}
+			j++;
+		}
+		i++;
+	}
+	if (E == 1)
+		return (TRUE);
+	return (FALSE);
+}
+
+int does_contain_p(char **map, t_map *game_board)
+{
+	int (i), (j), (P);
+
+	if (map == NULL || *map == NULL)
+		return (FALSE);
+	i = 1;
+	P = 0;
+	while (map[i + 1] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				(*game_board).x_P = j;
+				(*game_board).y_P = i;
 				P++;
-			else if (map[i][j] == 'C')
+			}
+			j++;
+		}
+		i++;
+	}
+	if (P == 1)
+		return (TRUE);
+	return (FALSE);
+}
+
+int does_contain_c(char **map, t_map *game_board)
+{
+	int (i), (j), (C);
+
+	if (map == NULL || *map == NULL)
+		return (FALSE);
+	i = 1;
+	C = 0;
+	while (map[i + 1] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == 'C')
 				C++;
 			j++;
 		}
 		i++;
 	}
-	if (E == 1 && P == 1 && C >= 1)
+	(*game_board).C = C;
+	if (C >= 1)
 		return (TRUE);
 	return (FALSE);
 }
@@ -199,32 +263,17 @@ void flood_fill(char **map, int x, int y, int rows, int cols, int *c)
 {
 	if (map == NULL || *map == NULL)
 		return ;
-	if (x < 0 || y < 0 || x >= rows || y >= cols)
+	if (x < 0 || y < 0 || y >= rows || x >= cols)
 		return ;
-	if (map[x][y] == '1' || map[x][y] == '#')
+	if (map[y][x] == '1' || map[y][x] == '#')
 		return ;
-	if (map[x][y] == 'C')
+	if (map[y][x] == 'C')
 		(*c)++;
-	map[x][y] = '#';
+	map[y][x] = '#';
 	flood_fill(map, x + 1, y, rows, cols, c);
 	flood_fill(map, x - 1, y, rows, cols, c);
 	flood_fill(map, x, y + 1, rows, cols, c);
 	flood_fill(map, x, y - 1, rows, cols, c);
-}
-
-int	create_dup(int fd)
-{
-	char **dup;
-	
-	dup = NULL;
-	if (fd < 0)
-		return (FALSE);
-	dup = read_file(fd);
-	if (dup == NULL || *dup == NULL)
-		return (FALSE);
-	if (find_start_position(dup) == FALSE)
-		return (FALSE);
-	return (FALSE);
 }
 
 int	if_changed(char **map)
@@ -235,12 +284,6 @@ int	if_changed(char **map)
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 0;
-	int a = 0;
-	while (map[a])
-	{
-		printf("%s\n", map[a]);
-		a++;
-	}
 	while (map[i] != NULL)
 	{
 		j = 0;
@@ -255,57 +298,25 @@ int	if_changed(char **map)
 	return (TRUE);
 }
 
-int	is_valid_path(char **map, int x, int y)
+int	is_valid_path(char *file_name,t_map *game_board)
 {
-	int (i), (j), (C), (c);
+	int c;
+	int fd;
+	char **map_copy;
 	
-	if (map == NULL || *map == NULL)
+	close((*game_board).fd);
+	fd = open(file_name, O_RDONLY);
+	(*game_board).fd = fd;
+	map_copy = read_file((*game_board).fd);
+	if (map_copy == NULL || *map_copy == NULL)
 		return (FALSE);
-	i = 0;
-	C = 0;
 	c = 0;
-	while (map[i] != NULL)
+	flood_fill(map_copy, (*game_board).x_P, (*game_board).y_P, (*game_board).rows, (*game_board).cols, &c);
+	if ((*game_board).C != c || if_changed(map_copy) == FALSE)
 	{
-		j = 0;
-		while (map[i][j] != '\0')
-		{
-			if (map[i][j] == 'C')
-				C++;
-			j++;
-		}
-		i++;
-	}
-	flood_fill(map, x, y, ++i, ++j, &c);
-	if (C != c || if_changed(map) == FALSE)
+		free_splited(map_copy);
 		return (FALSE);
-	return (TRUE);
-}
-
-int	find_start_position(char **map)
-{
-	int i;
-	int j;
-	t_map cord;
-	
-	if (map == NULL || *map == NULL)
-		return (FALSE);
-	i = 0;
-	while (map[i] != NULL)
-	{
-		j = 0;
-		while (map[i][j] != '\0')
-		{
-			if (map[i][j] == 'P')
-			{
-				cord.x_P = j;
-				cord.y_P = i;
-				if (is_valid_path(map, i, j) == FALSE)
-					return (FALSE);
-				return (TRUE);
-			}
-			j++;
-		}
-		i++;
 	}
+	free_splited(map_copy);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:31 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/04 20:05:32 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/08 14:41:08 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,59 +29,25 @@ void	free_splited(char **splited)
 
 int	main(int ac, char **av)
 {
-	/*void	*mlx_ptr;
-	void	*win_ptr;
-
-	mlx_ptr = mlx_init();
-	if (mlx_ptr == NULL)
-		printf("Error\n");
-	win_ptr = mlx_new_window(mlx_ptr, 800, 600, "SO_LONG");
-	mlx_pixel_put(mlx_ptr, win_ptr, 400, 500, 0x00FF0000);
-	mlx_loop(mlx_ptr);	 
-	return (0);*/
+	t_map game_board;
+	t_data data;
+	
 	if(ac < 2)
 		return(FALSE);
-	char **str = check_input(av[1]);
+	game_board.map = check_input(av[1], &game_board);
+	data.game.map = game_board.map;
+	data.game.fd = game_board.fd;
+	data.game.C = game_board.C;
+	data.game.x_E = game_board.x_E;
+	data.game.y_E = game_board.y_E;
+	data.game.x_P = game_board.x_P;
+	data.game.y_P = game_board.y_P;
+	//printf("%d, %d\n", data.game.x_P, data.game.y_P);
+	data.game.rows = game_board.rows;
+	data.game.cols = game_board.cols;
+	data.game.aet_C = 0;
+	//printf("%s\n", data.game.map[0]);
 	printf("Valid Map\n");
-	// if (check_file_extension(av[1]) == FALSE)
-	// {
-	// 	ft_printf("Wrong extension");
-	// 	exit(-1);
-	// }
-	// int fd = file_exist(av[1]);
-	// printf ("%d\n", fd);
-	// char **str = read_file(fd);
-	// if (str == NULL)
-	// {
-	// 	ft_printf("Invalid map\n");
-	// 	exit(FAILURE_EXIT);
-	// }
-	// int i = 0;
-	// while (str[i])
-	// {
-	// 	printf("%s\n", str[i]);
-	// 	i++;
-	// }
-	// if(is_rectangle(str) == FALSE)
-	// {
-	// 	ft_printf("Invalid map\n");
-	// 	exit(FAILURE_EXIT);
-	// }
-	// if (check_first_last_rows(str) == FALSE || check_midlle_rows(str) == FALSE)
-	// {
-	// 	ft_printf("Map Not Closed\n");
-	// 	exit(FAILURE_EXIT);
-	// }
-	// if (is_valid_line(str) == FALSE)
-	// {
-	// 	ft_printf("Invalid key\n");
-	// 	exit(FAILURE_EXIT);
-	// }
-	// if (does_contain(str) == FALSE)
-	// {
-	// 	ft_printf("Invalid keys\n");
-	// 	exit(FAILURE_EXIT);
-	// }
-	 free_splited(str);
+	window(&data);
 	return (0);
 }
