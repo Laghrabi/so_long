@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:55:43 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/08 15:17:21 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:21:46 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,13 @@ typedef struct s_data {
    t_map game;
    t_win win;
    t_img img; 
+   int move_count;
 } t_data;
 
 /* FUNCTIONS */
+int prepare_game_data(int ac, char **av, t_map *game_board, t_data *data);
+void update_player_position(t_data *data, int n_x, int n_y);
+int	check_nbr_of_rows_cols(t_map *game_board);
 void	setup_hooks(t_data *data);
 int	close_game(t_data *data);
 void render_tile(t_data *data, int row, int col);

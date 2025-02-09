@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:14:17 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/06 16:44:17 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:39:32 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,18 @@ void    exit_error(int flag, char **splited)
         ft_printf("Error: Invalid Map\n");
     }
     else if (flag == 3)
+        free_splited(splited);
+    else if (flag == 4)
     {
         free_splited(splited);
         ft_printf("Error: Map Not Closed\n");
     }
-    else if (flag == 4 || flag  == 5)
+    else if (flag == 5 || flag  == 6)
     {
         free_splited(splited);
         ft_printf("Error: Invalid keys\n");
     }
-    else if (flag == 6)
+    else if (flag == 7)
     {
         free_splited(splited);
         ft_printf("Error: Invalid Path\n");
@@ -109,13 +111,15 @@ char **check_input(char *file_name, t_map *game_board)
         exit_error(1, splited);
     if (is_rectangle(splited, game_board) == FALSE)
         exit_error(2, splited);
-    if (check_first_last_rows(splited) == FALSE || check_midlle_rows(splited) == FALSE)
+    if (check_nbr_of_rows_cols(game_board) == FALSE)
         exit_error(3, splited);
-    if (is_valid_line(splited) == FALSE)
+    if (check_first_last_rows(splited) == FALSE || check_midlle_rows(splited) == FALSE)
         exit_error(4, splited);
-    if (does_contain(splited, game_board) == FALSE)
+    if (is_valid_line(splited) == FALSE)
         exit_error(5, splited);
-    if (is_valid_path(file_name, game_board) == FALSE)
+    if (does_contain(splited, game_board) == FALSE)
         exit_error(6, splited);
+    if (is_valid_path(file_name, game_board) == FALSE)
+        exit_error(7, splited);
     return (splited);
 }

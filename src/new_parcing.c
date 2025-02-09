@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:02:41 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/07 20:58:31 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:44:53 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	is_rectangle(char **map, t_map *game_board)
 {
 	int	i;
 	size_t	len;
+	
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 0;
@@ -84,6 +85,22 @@ int	is_rectangle(char **map, t_map *game_board)
 		i++;
 	}
 	(*game_board).rows = i;
+	return (TRUE);
+}
+
+int	check_nbr_of_rows_cols(t_map *game_board)
+{
+	if ((*game_board).rows > 32)
+	{
+		ft_printf("Error: You exceeded the exact number of rows\n");
+		return (FALSE);
+	}
+	printf("%d\n", (*game_board).cols);
+	if ((*game_board).cols > 61)
+	{
+		ft_printf("Error: You exceeded the exact number of cols\n");
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -312,6 +329,13 @@ int	is_valid_path(char *file_name,t_map *game_board)
 		return (FALSE);
 	c = 0;
 	flood_fill(map_copy, (*game_board).x_P, (*game_board).y_P, (*game_board).rows, (*game_board).cols, &c);
+	// int a = 0;
+	// while (map_copy[a])
+	// {
+	// 	printf("%s\n", map_copy[a]);
+	// 	a++;
+	// }
+	// printf("\n");
 	if ((*game_board).C != c || if_changed(map_copy) == FALSE)
 	{
 		free_splited(map_copy);

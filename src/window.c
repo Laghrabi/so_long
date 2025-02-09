@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:50:08 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/08 15:18:00 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/09 15:48:17 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	setup_hooks(t_data *data)
 
 void window(t_data *data)
 {
+	data->move_count = 0;
 	data->win.mlx_ptr = mlx_init();
 	if (data->win.mlx_ptr == NULL)
 	{
@@ -154,7 +155,6 @@ void render_map(t_data *data)
 	}
 }
 
-
 int	handle_key(int keycode, void *param)
 {
 	t_data *data;
@@ -183,31 +183,69 @@ void vectory(t_data *data)
 	cleanup(data);
 	exit(0);
 }
-void	move_player(t_data *data, int n_col, int n_row)
+// void	move_player(t_data *data, int n_col, int n_row)
+// {
+// 	int n_x;
+// 	int n_y;
+	
+// 	n_x = data->game.x_P + n_col;
+// 	n_y = data->game.y_P + n_row;
+// 	if (n_y >= 0 && n_y < data->game.rows && n_x >= 0 && n_x < data->game.cols)
+// 	{
+// 		if (data->game.map[n_y][n_x] != '1')
+// 		{
+// 			if (data->game.map[n_y][n_x] == 'C')
+// 				data->game.aet_C += 1;
+// 			if (data->game.map[n_y][n_x] == 'E' && data->game.C != data->game.aet_C)
+// 				return ;
+// 			if (data->game.map[n_y][n_x] == 'E' && data->game.C == data->game.aet_C)
+// 			{
+// 				render_map(data);
+// 				vectory(data);
+// 			}
+// 			data->game.map[data->game.y_P][data->game.x_P] = '0';
+// 			data->game.map[n_y][n_x] = 'P';
+// 			data->game.y_P = n_y;
+// 			data->game.x_P = n_x;
+// 			data->move_count++;
+// 			ft_printf("Moves: %d\n", data->move_count);
+// 			render_map(data);
+// 		}
+// 	}
+// }
+
+void update_player_position(t_data *data, int n_x, int n_y)
+{
+	if (data->game.map[n_y][n_x] == 'C')
+		data->game.aet_C += 1;
+	if (data->game.map[n_y][n_x] == 'E' && data->game.C != data->game.aet_C)
+		return ;
+	if (data->game.map[n_y][n_x] == 'E' && data->game.C == data->game.aet_C)
+	{
+		data->move_count++;
+		ft_printf("Moves: %d\n", data->move_count);
+		render_map(data);
+		vectory(data);
+	}
+	data->game.map[data->game.y_P][data->game.x_P] = '0';
+	data->game.map[n_y][n_x] = 'P';
+	data->game.y_P = n_y;
+	data->game.x_P = n_x;
+	data->move_count++;
+	ft_printf("Moves: %d\n", data->move_count);
+	render_map(data);
+}
+
+void move_player(t_data *data, int n_col, int n_row)
 {
 	int n_x;
 	int n_y;
-	
+
 	n_x = data->game.x_P + n_col;
 	n_y = data->game.y_P + n_row;
 	if (n_y >= 0 && n_y < data->game.rows && n_x >= 0 && n_x < data->game.cols)
 	{
 		if (data->game.map[n_y][n_x] != '1')
-		{
-			if (data->game.map[n_y][n_x] == 'C')
-				data->game.aet_C += 1;
-			if (data->game.map[n_y][n_x] == 'E' && data->game.C != data->game.aet_C)
-				return ;
-			if (data->game.map[n_y][n_x] == 'E' && data->game.C == data->game.aet_C)
-			{
-				render_map(data);
-				vectory(data);
-			}
-			data->game.map[data->game.y_P][data->game.x_P] = '0';
-			data->game.map[n_y][n_x] = 'P';
-			data->game.y_P = n_y;
-			data->game.x_P = n_x;
-			render_map(data);
-		}
+			update_player_position(data, n_x, n_y);
 	}
 }
