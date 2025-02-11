@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_parcing.c                                      :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:02:41 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/09 13:44:53 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:05:53 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	check_nbr_of_rows_cols(t_map *game_board)
 		ft_printf("Error: You exceeded the exact number of rows\n");
 		return (FALSE);
 	}
-	printf("%d\n", (*game_board).cols);
 	if ((*game_board).cols > 61)
 	{
 		ft_printf("Error: You exceeded the exact number of cols\n");

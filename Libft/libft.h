@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claghrab <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 11:59:14 by claghrab          #+#    #+#             */
-/*   Updated: 2024/11/11 16:56:21 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:46:27 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 char	*ft_itoa(int n);
+char    *ft_itoa_buff(char *buff, int n);
 int		ft_atoi(const char *str);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
