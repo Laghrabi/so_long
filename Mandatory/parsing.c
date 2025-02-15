@@ -12,23 +12,23 @@
 
 #include "so_long.h"
 
-int check_file_extension(char *file_name)
+int	check_file_extension(char *file_name)
 {
-  if (file_name == NULL)
-    return (FALSE);
-  if (ft_strlen(file_name) < 5)
-    return (FALSE);
-  while (ft_strlen(file_name) > 4)
-    file_name++;
-  if (ft_strncmp(file_name, ".ber", 5) != 0)
-    return (FALSE);
-  return (TRUE);
+	if (file_name == NULL)
+		return (FALSE);
+	if (ft_strlen(file_name) < 5)
+		return (FALSE);
+	while (ft_strlen(file_name) > 4)
+		file_name++;
+	if (ft_strncmp(file_name, ".ber", 5) != 0)
+		return (FALSE);
+	return (TRUE);
 }
 
 int	file_exist(char *file_name, t_map *game_board)
 {
 	int	fd;
-	
+
 	if (file_name == NULL)
 		return (FALSE);
 	fd = open(file_name, O_RDONLY);
@@ -70,9 +70,9 @@ char	**read_file(int fd)
 
 int	is_rectangle(char **map, t_map *game_board)
 {
-	int	i;
+	int		i;
 	size_t	len;
-	
+
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 0;
@@ -80,7 +80,7 @@ int	is_rectangle(char **map, t_map *game_board)
 	(*game_board).cols = len;
 	while (map[i] != NULL)
 	{
-		if(len != ft_strlen(map[i]))
+		if (len != ft_strlen(map[i]))
 			return (FALSE);
 		i++;
 	}
@@ -105,7 +105,7 @@ int	check_nbr_of_rows_cols(t_map *game_board)
 
 int	check_first_last_rows(char **map)
 {
-	int i;
+	int	i;
 
 	if (map == NULL || *map == NULL)
 		return (FALSE);
@@ -129,11 +129,11 @@ int	check_first_last_rows(char **map)
 	return (TRUE);
 }
 
-int check_midlle_rows(char **map)
+int	check_midlle_rows(char **map)
 {
-	int i;
-	int len;
-	
+	int	i;
+	int	len;
+
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 1;
@@ -150,7 +150,7 @@ int check_midlle_rows(char **map)
 int	is_valid_key(char c, char *set)
 {
 	int	i;
-	
+
 	if (set == NULL)
 		return (FALSE);
 	i = 0;
@@ -166,8 +166,8 @@ int	is_valid_key(char c, char *set)
 int	is_valid_line(char **map)
 {
 	int	i;
-	int j;
-	
+	int	j;
+
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 0;
@@ -189,15 +189,15 @@ int	does_contain(char **map, t_map *game_board)
 {
 	if (map == NULL || *map == NULL)
 		return (FALSE);
-	if (does_contain_e(map, game_board) == TRUE && does_contain_p(map, game_board) == TRUE && does_contain_c(map, game_board) == TRUE)
+	if (does_contain_e(map, game_board) == TRUE && does_contain_p(map,
+			game_board) == TRUE && does_contain_c(map, game_board) == TRUE)
 		return (TRUE);
 	return (FALSE);
 }
 
-int does_contain_e(char **map, t_map *game_board)
+int	does_contain_e(char **map, t_map *game_board)
 {
-	int (i), (j), (E);
-
+	int(i), (j), (E);
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 1;
@@ -222,10 +222,9 @@ int does_contain_e(char **map, t_map *game_board)
 	return (FALSE);
 }
 
-int does_contain_p(char **map, t_map *game_board)
+int	does_contain_p(char **map, t_map *game_board)
 {
-	int (i), (j), (P);
-
+	int(i), (j), (P);
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 1;
@@ -250,10 +249,9 @@ int does_contain_p(char **map, t_map *game_board)
 	return (FALSE);
 }
 
-int does_contain_c(char **map, t_map *game_board)
+int	does_contain_c(char **map, t_map *game_board)
 {
-	int (i), (j), (C);
-
+	int(i), (j), (C);
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 1;
@@ -275,7 +273,7 @@ int does_contain_c(char **map, t_map *game_board)
 	return (FALSE);
 }
 
-void flood_fill(char **map, int x, int y, int rows, int cols, int *c)
+void	flood_fill(char **map, int x, int y, int rows, int cols, int *c)
 {
 	if (map == NULL || *map == NULL)
 		return ;
@@ -294,9 +292,9 @@ void flood_fill(char **map, int x, int y, int rows, int cols, int *c)
 
 int	if_changed(char **map)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	if (map == NULL || *map == NULL)
 		return (FALSE);
 	i = 0;
@@ -314,12 +312,12 @@ int	if_changed(char **map)
 	return (TRUE);
 }
 
-int	is_valid_path(char *file_name,t_map *game_board)
+int	is_valid_path(char *file_name, t_map *game_board)
 {
-	int c;
-	int fd;
-	char **map_copy;
-	
+	int		c;
+	int		fd;
+	char	**map_copy;
+
 	close((*game_board).fd);
 	fd = open(file_name, O_RDONLY);
 	(*game_board).fd = fd;
@@ -327,7 +325,8 @@ int	is_valid_path(char *file_name,t_map *game_board)
 	if (map_copy == NULL || *map_copy == NULL)
 		return (FALSE);
 	c = 0;
-	flood_fill(map_copy, (*game_board).x_P, (*game_board).y_P, (*game_board).rows, (*game_board).cols, &c);
+	flood_fill(map_copy, (*game_board).x_P, (*game_board).y_P,
+			(*game_board).rows, (*game_board).cols, &c);
 	// int a = 0;
 	// while (map_copy[a])
 	// {
