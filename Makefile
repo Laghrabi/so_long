@@ -6,7 +6,7 @@
 #    By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/01 12:22:28 by claghrab          #+#    #+#              #
-#    Updated: 2025/02/11 17:53:51 by claghrab         ###   ########.fr        #
+#    Updated: 2025/02/15 18:27:53 by claghrab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CFLAGS = -Wall -Wextra -Werror -ggdb
 MLX_FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 NAME = so_long
 BNAME = so_long_bonus
-SRCS = Mandatory/main.c	Mandatory/parsing.c	Mandatory/error.c	Mandatory/window.c
-BSRCS = Bonus/main.c	Bonus/parsing.c	Bonus/error.c	Bonus/window.c
+SRCS = Mandatory/main.c	Mandatory/parsing1.c	Mandatory/error.c	Mandatory/window.c	Mandatory/rendering.c	Mandatory/parsing2.c	Mandatory/parsing3.c	Mandatory/parsing4.c
+BSRCS = Bonus/main.c	Bonus/parsing1.c	Bonus/error.c	Bonus/window.c	Bonus/parsing2.c	Bonus/parsing3.c	Bonus/parsing4.c	Bonus/player.c	Bonus/rendering.c
 OBJS = $(SRCS:.c=.o)
 BOBJS = $(BSRCS:.c=.o)
 

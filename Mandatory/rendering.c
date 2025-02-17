@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:40:45 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 14:44:33 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:20:35 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ void	render_tile(t_data *data, int row, int col)
 	else if (data->game.map[row][col] == '0')
 		img = data->img.floor;
 	else if (data->game.map[row][col] == 'E'
-			&& data->game.C != data->game.aet_C)
+			&& data->game.c != data->game.ate_c)
 		img = data->img.door1;
 	else if (data->game.map[row][col] == 'E'
-			&& data->game.C == data->game.aet_C)
+			&& data->game.c == data->game.ate_c)
 		img = data->img.door2;
 	mlx_put_image_to_window(data->win.mlx_ptr, data->win.win_ptr, img, col * 64,
-			row * 64);
+		row * 64);
 }
 
 void	render_map(t_data *data)
@@ -77,20 +77,20 @@ int	handle_key(int keycode, void *param)
 void	update_player_position(t_data *data, int n_x, int n_y)
 {
 	if (data->game.map[n_y][n_x] == 'C')
-		data->game.aet_C += 1;
-	if (data->game.map[n_y][n_x] == 'E' && data->game.C != data->game.aet_C)
+		data->game.ate_c += 1;
+	if (data->game.map[n_y][n_x] == 'E' && data->game.c != data->game.ate_c)
 		return ;
-	if (data->game.map[n_y][n_x] == 'E' && data->game.C == data->game.aet_C)
+	if (data->game.map[n_y][n_x] == 'E' && data->game.c == data->game.ate_c)
 	{
 		data->move_count++;
 		ft_printf("Moves: %d\n", data->move_count);
 		render_map(data);
 		vectory(data);
 	}
-	data->game.map[data->game.y_P][data->game.x_P] = '0';
+	data->game.map[data->game.y_p][data->game.x_p] = '0';
 	data->game.map[n_y][n_x] = 'P';
-	data->game.y_P = n_y;
-	data->game.x_P = n_x;
+	data->game.y_p = n_y;
+	data->game.x_p = n_x;
 	data->move_count++;
 	ft_printf("Moves: %d\n", data->move_count);
 	render_map(data);
@@ -98,11 +98,11 @@ void	update_player_position(t_data *data, int n_x, int n_y)
 
 void	move_player(t_data *data, int n_col, int n_row)
 {
-	int n_x;
-	int n_y;
+	int	n_x;
+	int	n_y;
 
-	n_x = data->game.x_P + n_col;
-	n_y = data->game.y_P + n_row;
+	n_x = data->game.x_p + n_col;
+	n_y = data->game.y_p + n_row;
 	if (n_y >= 0 && n_y < data->game.rows && n_x >= 0 && n_x < data->game.cols)
 	{
 		if (data->game.map[n_y][n_x] != '1')

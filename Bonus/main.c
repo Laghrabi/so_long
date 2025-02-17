@@ -6,11 +6,43 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:31 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/11 18:03:46 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:22:33 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	cleanup(t_data *data)
+{
+	if (data->img.wall1)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.wall1);
+	if (data->img.player1)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.player1);
+	if (data->img.player2)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.player2);
+	if (data->img.colle)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.colle);
+	if (data->img.door1)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.door1);
+	if (data->img.door2)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.door2);
+	if (data->img.floor)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.floor);
+	if (data->win.win_ptr)
+		mlx_destroy_window(data->win.mlx_ptr, data->win.win_ptr);
+	if (data->img.en1)
+		mlx_destroy_image(data->win.mlx_ptr, data->img.en1);
+	mlx_destroy_display(data->win.mlx_ptr);
+	free(data->win.mlx_ptr);
+	free_splited(data->game.map);
+}
+
+void	vectory(t_data *data)
+{
+	ft_printf("🎉 You won!\n");
+	cleanup(data);
+	exit(0);
+}
 
 void	free_splited(char **splited)
 {
@@ -27,54 +59,32 @@ void	free_splited(char **splited)
 	free(splited);
 }
 
-// int	main(int ac, char **av)
-// {
-// 	t_map game_board;
-// 	t_data data;
-	
-// 	if(ac < 2)
-// 		return(FALSE);
-// 	game_board.map = check_input(av[1], &game_board);
-// 	data.game.map = game_board.map;
-// 	data.game.fd = game_board.fd;
-// 	data.game.C = game_board.C;
-// 	data.game.x_E = game_board.x_E;
-// 	data.game.y_E = game_board.y_E;
-// 	data.game.x_P = game_board.x_P;
-// 	data.game.y_P = game_board.y_P;
-// 	data.game.rows = game_board.rows;
-// 	data.game.cols = game_board.cols;
-// 	data.game.aet_C = 0;
-// 	window(&data);
-// 	return (0);
-// }
-
-
-int prepare_game_data(int ac, char **av, t_map *game_board, t_data *data)
+int	prepare_game_data(int ac, char **av, t_map *game_board, t_data *data)
 {
-    if (ac < 2)
-        return FALSE;
-    game_board->map = check_input(av[1], game_board);
-    data->game.map = game_board->map;
-    data->game.fd = game_board->fd;
-    data->game.C = game_board->C;
-    data->game.x_E = game_board->x_E;
-    data->game.y_E = game_board->y_E;
-    data->game.x_P = game_board->x_P;
-    data->game.y_P = game_board->y_P;
-    data->game.rows = game_board->rows;
-    data->game.cols = game_board->cols;
-    data->game.aet_C = 0;
-    return TRUE;
+	if (ac < 2)
+		return (FALSE);
+	game_board->map = check_input(av[1], game_board);
+	data->game.map = game_board->map;
+	data->game.fd = game_board->fd;
+	data->game.c = game_board->c;
+	data->game.x_e = game_board->x_e;
+	data->game.y_e = game_board->y_e;
+	data->game.x_p = game_board->x_p;
+	data->game.y_p = game_board->y_p;
+	data->game.rows = game_board->rows;
+	data->game.cols = game_board->cols;
+	data->game.ate_c = 0;
+	data->game.ff_c = 0;
+	return (TRUE);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_map game_board;
-    t_data data;
+	t_map	game_board;
+	t_data	data;
 
-    if (!prepare_game_data(ac, av, &game_board, &data))
-        return FALSE;
-    window(&data);
-    return 0;
+	if (!prepare_game_data(ac, av, &game_board, &data))
+		return (FALSE);
+	window(&data);
+	return (0);
 }

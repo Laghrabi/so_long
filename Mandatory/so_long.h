@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:55:43 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 16:48:46 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:25:56 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ typedef struct s_map
 	int		fd;
 	int		rows;
 	int		cols;
-	int		C;
-	int		aet_C;
-	int		x_P;
-	int		y_P;
-	int		x_E;
-	int		y_E;
+	int		c;
+	int		ate_c;
+	int		x_p;
+	int		y_p;
+	int		x_e;
+	int		y_e;
+	int		ff_c;
 }			t_map;
 
 typedef struct s_win
@@ -85,7 +86,7 @@ void		cleanup(t_data *data);
 void		render_map(t_data *data);
 void		load_images(t_data *data);
 void		window(t_data *data);
-void		flood_fill(char **map, int x, int y, int rows, int cols, int *c);
+void		flood_fill(char **map, int x, int y, t_map *game_board);
 int			is_valid_path(char *file_name, t_map *game_board);
 int			if_changed(char **map);
 int			check_midlle_rows(char **map);

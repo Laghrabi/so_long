@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:31 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 16:45:26 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:25:33 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,15 @@ int	prepare_game_data(int ac, char **av, t_map *game_board, t_data *data)
 	game_board->map = check_input(av[1], game_board);
 	data->game.map = game_board->map;
 	data->game.fd = game_board->fd;
-	data->game.C = game_board->C;
-	data->game.x_E = game_board->x_E;
-	data->game.y_E = game_board->y_E;
-	data->game.x_P = game_board->x_P;
-	data->game.y_P = game_board->y_P;
+	data->game.c = game_board->c;
+	data->game.x_e = game_board->x_e;
+	data->game.y_e = game_board->y_e;
+	data->game.x_p = game_board->x_p;
+	data->game.y_p = game_board->y_p;
 	data->game.rows = game_board->rows;
 	data->game.cols = game_board->cols;
-	data->game.aet_C = 0;
+	data->game.ate_c = 0;
+	data->game.ff_c = 0;
 	return (TRUE);
 }
 
