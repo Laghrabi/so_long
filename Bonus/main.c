@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 12:33:31 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 18:22:33 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:41:19 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	cleanup(t_data *data)
 	mlx_destroy_display(data->win.mlx_ptr);
 	free(data->win.mlx_ptr);
 	free_splited(data->game.map);
+	free(data->enemies);
 }
 
 void	vectory(t_data *data)
@@ -63,6 +64,7 @@ int	prepare_game_data(int ac, char **av, t_map *game_board, t_data *data)
 {
 	if (ac < 2)
 		return (FALSE);
+	game_board->ff_c = 0;
 	game_board->map = check_input(av[1], game_board);
 	data->game.map = game_board->map;
 	data->game.fd = game_board->fd;
@@ -75,6 +77,7 @@ int	prepare_game_data(int ac, char **av, t_map *game_board, t_data *data)
 	data->game.cols = game_board->cols;
 	data->game.ate_c = 0;
 	data->game.ff_c = 0;
+	get_enemies(data);
 	return (TRUE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:55:43 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 20:16:22 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:36:38 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <time.h>
 
 /*MACROS*/
 # define TRUE 1
@@ -32,7 +33,7 @@ typedef struct s_enemy
 {
 	int				x;
 	int				y;
-	struct s_enemy	*next;
+	int				direction;
 }					t_enemy;
 
 typedef struct s_map
@@ -77,10 +78,17 @@ typedef struct s_data
 	t_map			game;
 	t_win			win;
 	t_img			img;
+	t_enemy			*enemies;
+	int				enemy_count;
 	int				move_count;
+	int				frame_choice;
 }					t_data;
 
 /* FUNCTIONS */
+void	get_move_(t_data *data, int direc);
+void	get_move_(t_data *data, int direc);
+
+void				get_enemies(t_data *data);
 void				validate_map(char **splited, char *file_name,
 						t_map *game_board);
 void				*select_tile_image(t_data *data, int row, int col);

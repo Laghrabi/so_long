@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:23:15 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 18:24:21 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:19:18 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	update_player_position(t_data *data, int n_x, int n_y)
 	data->game.y_p = n_y;
 	data->game.x_p = n_x;
 	data->move_count++;
-	mlx_clear_window(data->win.mlx_ptr, data->win.win_ptr);
 	render_map(data);
 }
 

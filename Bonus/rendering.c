@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:21:30 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 20:20:07 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:02:09 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@
 // 	put_moves(data);
 // }
 
+// char	get_random_move(t_data *data)
+// {
+//	
+//}
 void	*select_tile_image(t_data *data, int row, int col)
 {
 	static int	f;
@@ -54,7 +58,7 @@ void	*select_tile_image(t_data *data, int row, int col)
 		return (data->img.wall1);
 	else if (data->game.map[row][col] == 'P')
 	{
-		if (f % 600 < 300)
+		if (f % 600 <  300)
 			return (data->img.player2);
 		return (data->img.player1);
 	}
@@ -83,11 +87,20 @@ void	render_tile(t_data *data, int row, int col)
 	put_moves(data);
 }
 
+int	get_move(void)
+{
+	return (rand() % 4);
+}
+
 int	render_map(t_data *data)
 {
 	int	row;
 	int	col;
+	static int count;
 
+	srand((time(NULL) ^ 12345) * 567890);
+	if (count % 30 == 0)
+		get_move_(data, get_move());
 	row = 0;
 	while (row < data->game.rows)
 	{
@@ -99,6 +112,7 @@ int	render_map(t_data *data)
 		}
 		row++;
 	}
+	count++;
 	return (0);
 }
 
