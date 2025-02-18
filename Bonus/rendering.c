@@ -6,49 +6,12 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:21:30 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/17 18:02:09 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:15:06 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-// void	render_tile(t_data *data, int row, int col)
-// {
-// 	void		*img;
-// 	static int	f;
-
-// 	++f;
-// 	img = NULL;
-// 	if (data->game.map[row][col] == '1')
-// 		img = data->img.wall1;
-// 	else if (data->game.map[row][col] == 'P')
-// 	{
-// 		if (f % 600 < 300)
-// 			img = data->img.player2;
-// 		else
-// 			img = data->img.player1;
-// 	}
-// 	else if (data->game.map[row][col] == 'C')
-// 		img = data->img.colle;
-// 	else if (data->game.map[row][col] == '0')
-// 		img = data->img.floor;
-// 	else if (data->game.map[row][col] == 'X')
-// 		img = data->img.en1;
-// 	else if (data->game.map[row][col] == 'E'
-// 			&& data->game.c != data->game.ate_c)
-// 		img = data->img.door1;
-// 	else if (data->game.map[row][col] == 'E'
-// 			&& data->game.c == data->game.ate_c)
-// 		img = data->img.door2;
-// 	mlx_put_image_to_window(data->win.mlx_ptr, data->win.win_ptr, img, col * 64,
-// 		row * 64);
-// 	put_moves(data);
-// }
-
-// char	get_random_move(t_data *data)
-// {
-//	
-//}
 void	*select_tile_image(t_data *data, int row, int col)
 {
 	static int	f;
@@ -58,7 +21,7 @@ void	*select_tile_image(t_data *data, int row, int col)
 		return (data->img.wall1);
 	else if (data->game.map[row][col] == 'P')
 	{
-		if (f % 600 <  300)
+		if (f % 600 < 300)
 			return (data->img.player2);
 		return (data->img.player1);
 	}
@@ -94,9 +57,9 @@ int	get_move(void)
 
 int	render_map(t_data *data)
 {
-	int	row;
-	int	col;
-	static int count;
+	int			row;
+	int			col;
+	static int	count;
 
 	srand((time(NULL) ^ 12345) * 567890);
 	if (count % 30 == 0)

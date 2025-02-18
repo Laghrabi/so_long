@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 16:54:05 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 17:33:28 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:51:38 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	if_changed(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] != '1' && map[i][j] != '#')
+			if (map[i][j] != '1' && map[i][j] != '#' && map[i][j] != '0')
 				return (FALSE);
 			j++;
 		}

@@ -56,30 +56,30 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-char    *ft_itoa_buff(char *buff, int n)
+char	*ft_itoa_buff(char *buff, int n)
 {
-    unsigned int    m;
-    int                i;
+	unsigned int	m;
+	int				i;
 
-    i = 0;
-    if (n == 0)
-    {
-        ft_strlcpy(buff, "0", 2);
-        return (buff);
-    }
-    if (n < 0)
-    {
-        buff[i++] = '-';
-        n = (unsigned int) -n;
-    }
-    m = 1;
-    while (n / m >= 10)
-        m *= 10;
-    while (m >= 1)
-    {
-        buff[i++] = ((n / m) % 10) + '0';
-        m /= 10;
-    }
-    buff[i] = '\0';
-    return (buff);
+	i = 0;
+	if (n == 0)
+	{
+		ft_strlcpy(buff, "0", 2);
+		return (buff);
+	}
+	if (n < 0)
+	{
+		buff[i++] = '-';
+		n = (unsigned int)-n;
+	}
+	m = 1;
+	while (n / m >= 10)
+		m *= 10;
+	while (m >= 1)
+	{
+		buff[i++] = ((n / m) % 10) + '0';
+		m /= 10;
+	}
+	buff[i] = '\0';
+	return (buff);
 }

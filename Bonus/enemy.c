@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 14:36:31 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/17 18:14:16 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:15:48 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,42 +20,43 @@ void	update_enemy_position(t_data *data, int n_x, int n_y, int i)
 	data->enemies[i].x = n_x;
 }
 
-static int	validate_move(t_data *data, int n_x, int n_y)
+int	validate_move(t_data *data, int n_x, int n_y)
 {
 	if (data->game.map[n_y][n_x] == 'P')
 		kill_player(data);
 	if (data->game.map[n_y][n_x] == 'E' || data->game.map[n_y][n_x] == 'C'
 		|| data->game.map[n_y][n_x] == '1' || data->game.map[n_y][n_x] == 'X')
-		return 0;
+		return (0);
 	return (1);
 }
 
 void	get_move_(t_data *data, int direc)
 {
 	int (i) = 0;
-	srand((time(NULL) ^ 12345) * 567890);
-	while (i < data->enemy_count)	
+	while (i < data->enemy_count)
 	{
 		if (direc == 0 && validate_move(data, data->enemies[i].x,
-			data->enemies[i].y + 1)) // Down
-			update_enemy_position(data, data->enemies[i].x, data->enemies[i].y + 1, i);
+				data->enemies[i].y + 1))
+			update_enemy_position(data, data->enemies[i].x, data->enemies[i].y
+				+ 1, i);
 		else if (direc == 1 && validate_move(data, data->enemies[i].x + 1,
-			data->enemies[i].y)) // Down
-			update_enemy_position(data, data->enemies[i].x + 1, data->enemies[i].y, i);
+				data->enemies[i].y))
+			update_enemy_position(data, data->enemies[i].x + 1,
+				data->enemies[i].y, i);
 		else if (direc == 2 && validate_move(data, data->enemies[i].x,
-			data->enemies[i].y - 1)) // Down
-			update_enemy_position(data, data->enemies[i].x, data->enemies[i].y - 1, i);
+				data->enemies[i].y - 1))
+			update_enemy_position(data, data->enemies[i].x, data->enemies[i].y
+				- 1, i);
 		else if (direc == 3 && validate_move(data, data->enemies[i].x - 1,
-			data->enemies[i].y)) // Down
-			update_enemy_position(data, data->enemies[i].x - 1, data->enemies[i].y, i);
+				data->enemies[i].y))
+			update_enemy_position(data, data->enemies[i].x - 1,
+				data->enemies[i].y, i);
 		i++;
 	}
-	// for(int i = 0; i < data->enemy_count; i++)
-	// 	printf("x enemy[%d]=%d, y enemy[%d]=%d\n", i, data->enemies[i].x,i,data->enemies[i].y);
 }
 
-static void count_enemies(t_map *game, int *count)
-{    
+void	count_enemies(t_map *game, int *count)
+{
 	int (i), (j);
 	i = 0;
 	while (i < game->rows)
@@ -98,4 +99,3 @@ void	get_enemies(t_data *data)
 		i++;
 	}
 }
-
