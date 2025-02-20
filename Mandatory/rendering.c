@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:40:45 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 17:20:35 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:02:07 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,12 @@ void	render_map(t_data *data)
 	}
 }
 
-int	handle_key(int keycode, void *param)
+int	handle_key(int keycode, t_data *data)
 {
-	t_data	*data;
-
-	data = (t_data *)param;
 	if (keycode == 65307)
 	{
 		cleanup(data);
-		exit(1);
+		exit(0);
 	}
 	if (keycode == 'w')
 		move_player(data, 0, -1);

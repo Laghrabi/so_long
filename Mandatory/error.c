@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 18:14:17 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 16:44:24 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:52:02 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,28 @@
 void	exit_error(int flag, char **splited)
 {
 	if (flag == 0)
-		ft_printf("Error: Wrong Extension\n");
+		ft_printf("Error\nWrong Extension\n");
 	else if (flag == 1 || flag == 2)
 	{
 		free_splited(splited);
-		ft_printf("Error: Invalid Map\n");
+		ft_printf("Error\nInvalid Map\n");
 	}
 	else if (flag == 3)
 		free_splited(splited);
 	else if (flag == 4)
 	{
 		free_splited(splited);
-		ft_printf("Error: Map Not Closed\n");
+		ft_printf("Error\nMap Not Closed\n");
 	}
 	else if (flag == 5 || flag == 6)
 	{
 		free_splited(splited);
-		ft_printf("Error: Invalid keys\n");
+		ft_printf("Error\nInvalid keys\n");
 	}
 	else if (flag == 7)
 	{
 		free_splited(splited);
-		ft_printf("Error: Invalid Path\n");
+		ft_printf("Error\nInvalid Path\n");
 	}
 	exit(FAILURE_EXIT);
 }

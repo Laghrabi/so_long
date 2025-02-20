@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 18:21:30 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/18 14:15:06 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:57:44 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*select_tile_image(t_data *data, int row, int col)
 		return (data->img.wall1);
 	else if (data->game.map[row][col] == 'P')
 	{
-		if (f % 600 < 300)
+		if (f % 2500 < 300)
 			return (data->img.player2);
 		return (data->img.player1);
 	}
@@ -79,11 +79,8 @@ int	render_map(t_data *data)
 	return (0);
 }
 
-int	handle_key(int keycode, void *param)
+int	handle_key(int keycode, t_data *data)
 {
-	t_data	*data;
-
-	data = (t_data *)param;
 	if (keycode == 65307)
 	{
 		cleanup(data);

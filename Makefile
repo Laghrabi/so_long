@@ -6,7 +6,7 @@
 #    By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/01 12:22:28 by claghrab          #+#    #+#              #
-#    Updated: 2025/02/17 15:05:31 by claghrab         ###   ########.fr        #
+#    Updated: 2025/02/20 18:56:23 by claghrab         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ BOBJS = $(BSRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) 
 	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME) Libft/libft.a
 
 bonus: $(BNAME)
@@ -37,3 +37,5 @@ fclean: clean
 	rm -rf $(NAME) $(BNAME)
 
 re: fclean all
+
+.SECONDARY: $(OBJS) $(SRCS) $(BOBJS) $(BSRCS)

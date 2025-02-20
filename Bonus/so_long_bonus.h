@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 17:55:43 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/17 17:36:38 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:39:05 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			close_game(t_data *data);
 void		render_tile(t_data *data, int row, int col);
 void		vectory(t_data *data);
 void		move_player(t_data *data, int n_col, int n_row);
-int			handle_key(int keycode, void *param);
+int			handle_key(int keycode, t_data *data);
 void		cleanup(t_data *data);
 int			render_map(t_data *data);
 void		load_images(t_data *data);

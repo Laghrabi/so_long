@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 12:50:08 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/15 16:45:17 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:01:37 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	window(t_data *data)
 	mlx_key_hook(data->win.win_ptr, handle_key, data);
 	setup_hooks(data);
 	mlx_loop(data->win.mlx_ptr);
-	cleanup(data);
 }
 
 void	load_images(t_data *data)

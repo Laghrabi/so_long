@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 17:53:04 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/18 16:13:39 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:58:38 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ void	flood_fill(char **map, int x, int y, t_map *game_board)
 		return ;
 	if (map[y][x] == 'C')
 		(*game_board).ff_c += 1;
+	if (map[y][x] == 'E')
+	{
+		map[y][x] = '#';
+		return ;
+	}
 	map[y][x] = '#';
 	flood_fill(map, x + 1, y, game_board);
 	flood_fill(map, x - 1, y, game_board);

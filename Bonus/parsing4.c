@@ -6,7 +6,7 @@
 /*   By: claghrab <claghrab@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 17:54:43 by claghrab          #+#    #+#             */
-/*   Updated: 2025/02/18 16:45:05 by claghrab         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:40:36 by claghrab         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@ int	is_valid_path(char *file_name, t_map *game_board)
 	if (map_copy == NULL || *map_copy == NULL)
 		return (FALSE);
 	flood_fill(map_copy, (*game_board).x_p, (*game_board).y_p, game_board);
-	int i = 0;
-	while (map_copy[i])
-	{
-		printf("%s\n", map_copy[i]);
-		i++;
-	}
 	if ((*game_board).c != (*game_board).ff_c || if_changed(map_copy) == FALSE)
 	{
 		free_splited(map_copy);
